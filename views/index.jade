@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  #application
+    #overbar
+      ul#main-menu
+        li#add_doc New Document
+        li#save_doc Save
+    #document_screen
+    ul#latest_documents
+
+block templates
+  script(id='translation-template',type='text/template')
+      <div class="cnt-translation">
+      <span class='etq'>Language</span>
+      <select class="lang-sel" >
+      <% LanguageScheme.each(function(lang) { %>
+      <option value="<%= lang.get('code') %>"
+      <%= language==lang.get('code') ? "selected='selected'":"" %>>
+      <%= lang.get('value') %></option>
+      <% }); %>
+      </select>
+      <textarea class="translation"><%= text %></textarea>
+      </div>
+
+  script(id='document-template',type='text/template')
+      <div id="cnt-document">
+      <span class="save-btn clickable"><%= title %></span>
+      <span class="save-btn clickable">save</span>
+      <span class="saved"><%= saved ? 'Saved' : 'Unsaved' %></span>
+      <span class="close-btn clickable">close</span>
+      </div>
+
+  script(id='doc-row-template',type='text/template')
+      <li>
+      <span><%= id %></span>
+      <span><%= title %></span>
+      <span class="open clickable" data-id="<%= id %>">Open</span>
+      <span class="delete clickable" data-id="<%= id %>">Delete</span>
+      </li>
+
+block scripts
+  script(src='javascripts/libs/jquery-1.10.2.min.js')
+  script(src='javascripts/libs/underscore.js')
+  script(src='javascripts/libs/backbone.js')
+  script(src='javascripts/libs/backbone.localStorage-min.js')
+  script(src='javascripts/models.js')
+  script(src='javascripts/collections.js')
+  script(src='javascripts/views.js')
+  script(src='javascripts/main.js')
